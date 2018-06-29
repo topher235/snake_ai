@@ -4,12 +4,12 @@ import time
 import snake
 
 def draw_snake():
-    pygame.draw.rect(background, snake.color, snake.get_rect(), 0)
+    [pygame.draw.rect(background, snake.color, snake.get_rect(i), 0) for i,_ in enumerate(snake.body)]
 
 def move_snake():
     background.fill((0, 0, 0))
     snake.move()
-    pygame.draw.rect(background, snake.color, snake.get_rect(), 0)
+    draw_snake()
 
 pygame.init()
 
@@ -24,12 +24,13 @@ background.fill((0,0,0))
 
 # Initialize snake
 snake = snake.Snake()
-pygame.draw.rect(background, snake.color, snake.get_rect(), 0)
+draw_snake()
 
 # Draw screen
 screen.blit(background, (0, 0))
 pygame.display.flip()
 
+# Game loop
 condition = True
 while condition:
     move_snake();
