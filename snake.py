@@ -69,3 +69,11 @@ class Snake:
     def did_collide_with_body(self):
         # Not yet implemented
         return False
+
+    def did_collide_with_food(self, food):
+        head = self.body[-1]
+        head_xpos = head.left + (0.5 * head.width)
+        head_ypos = head.top + (0.5 * head.height)
+        if head_xpos >= food.left and head_xpos <= food.left+food.width and head_ypos >= food.top and head_ypos <= food.top+food.height:
+            return True
+        return False
