@@ -4,7 +4,7 @@ from block import Block
 class Snake:
     def __init__(self):
         # The tail is the first index, the head is the last index
-        self.body = [Block(10, 20), Block(20, 20), Block(20, 30)]
+        self.body = [Block(10, 20)]
         # Keep track of where the next tail will appear
         self.next_tail = Block(0, 0)
         self.color = (0, 250, 0)
@@ -23,20 +23,24 @@ class Snake:
         self.body[-1].top += self.dy
 
     def move_left(self):
-        self.dx = -10
-        self.dy = 0
+        if not self.dx == 10:
+            self.dx = -10
+            self.dy = 0
 
     def move_up(self):
-        self.dx = 0
-        self.dy = -10
+        if not self.dy == 10:
+            self.dx = 0
+            self.dy = -10
 
     def move_right(self):
-        self.dx = 10
-        self.dy = 0
+        if not self.dx == -10:
+            self.dx = 10
+            self.dy = 0
 
     def move_down(self):
-        self.dx = 0
-        self.dy = 10
+        if not self.dy == -10:
+            self.dx = 0
+            self.dy = 10
 
     def get_rect(self, i):
         # Return a rectangle of the desired body
@@ -67,7 +71,12 @@ class Snake:
         return False
 
     def did_collide_with_body(self):
-        # Not yet implemented
+        head = self.body[-1]
+        head_x = head.left + (0.5 * head.width)
+        head_y = head.top + (0.5 * head.height)
+        for _,block in enumerate(self.body[:-1]):
+            if head_x >= block.left and head_x <= block.left+block.width and head_y >= block.top and head_y <= block.top+block.height:
+                return True
         return False
 
     def did_collide_with_food(self, food):
