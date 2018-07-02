@@ -101,6 +101,7 @@ class Game:
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         loop = False
+                        return False
                     if event.type == KEYDOWN:
                         if event.key == K_RIGHT:
                             self.snake.move_right()
@@ -127,6 +128,12 @@ class Game:
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         loop = False
+                        return False
+                    if event.type == KEYDOWN:
+                        if event.key == K_r:
+                            return True
 
-game = Game()
-game.play()
+loop = True
+while loop:
+    game = Game()
+    loop = game.play()
