@@ -12,6 +12,7 @@ Learn AI development by creating a bot that plays Snake
 
 ## Progress
 *6/29/2018* : The snake is now being drawn on the screen and moving *almost* like it should. Currently, it can go in reverse but the tail follows the head as it should. The snake object is now comprised of a list of block objects. Food is populated at random places and the snake grows correctly when it eats food. Wall collision is detected and ends the game. Score keeping has been implemented.
+
 *7/2/2018* : The snake cannot go in reverse unless it is only 1 block long (just a head). The game now ends if the snake collides with its tail. The collision logic is separated from the snake object. The game can be restarted if the snake dies instead of having to rerun the script.
 
 ## Future TODO:
