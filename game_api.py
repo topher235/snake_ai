@@ -14,7 +14,7 @@ class Game:
         self.init_screen()
         self.init_snake()
         self.init_food()
-
+        self.gameover = False
 
     def init_screen(self):
         # Display
@@ -92,49 +92,31 @@ class Game:
         rect = Rect(self.food.left, self.food.top, self.food.width, self.food.height)
         pygame.draw.rect(self.background, self.food.color, rect, 0)
 
-    def play(self):
-        # Game loop
-        gameover = False
-        loop = True
-        while loop:
-            if not gameover:
-                # Listen for user input
-                for event in pygame.event.get():
-                    if event.type == QUIT:
-                        loop = False
-                        return False
-                    if event.type == KEYDOWN:
-                        if event.key == K_RIGHT:
-                            self.snake.move_right()
-                        if event.key == K_LEFT:
-                            self.snake.move_left()
-                        if event.key == K_UP:
-                            self.snake.move_up()
-                        if event.key == K_DOWN:
-                            self.snake.move_down()
-                self.snake.move()
-                self.draw_snake()
-                self.draw_food_to_screen()
-                self.draw_score()
-                if self.check_collision():
-                    gameover = True
+    def play(self, direction):
+    	if direction == "left":
+    		self.snake.move_left()
+    	elif direction == "right":
+    		self.snake.move_right()
+    	elif direction == "up":
+    		self.snake.move_up()
+    	elif direction == "down":
+    		self.snake.move_down()
 
-                # Draw background onto the screen
-                self.screen.blit(self.background, (0, 0))
-                pygame.display.flip()
-                time.sleep(0.05)
-            else:
-                # Necessary to keep game from looping forever
-                # and requiring a crash to exit
-                for event in pygame.event.get():
-                    if event.type == QUIT:
-                        loop = False
-                        return False
-                    if event.type == KEYDOWN:
-                        if event.key == K_r:
-                            return True
+    	self.snake.move()
+    	self.draw_snake()
+    	self.draw_food_to_screen()
+    	self.draw_score()
+    	if self.check_collision():
+    		self.gameover = True
 
-loop = True
-while loop:
-    game = Game()
-    loop = game.play()
+    	# Draw background onto the screen
+    	self.screen.blit(self.background, (0, 0))
+    	pygame.display.flip()
+    	time.sleep(0.05)
+
+for i in range(10):
+	game = Game()
+	directions = ["left", "right", "up", "down"]
+	while not game.gameover:
+		direction = random.randrange(len(directions))
+		game.play(directions[direction])

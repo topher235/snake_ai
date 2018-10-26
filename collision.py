@@ -5,10 +5,10 @@ def did_collide_with_wall(snake, screensize):
     screen_h = screensize[1]
     head = snake.body[-1]
     # Check left side of screen
-    if head.left+head.width < 0:
+    if head.left+head.width <= 0:
         return True
     # Check top of screen
-    if head.top+head.height < 0:
+    if head.top+head.height <= 0:
         return True
     # Check right side of screen
     if head.left+head.width > screen_w:
