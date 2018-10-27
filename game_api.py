@@ -112,11 +112,52 @@ class Game:
     	# Draw background onto the screen
     	self.screen.blit(self.background, (0, 0))
     	pygame.display.flip()
-    	time.sleep(0.05)
+    	# time.sleep(0.05)
 
-for i in range(10):
-	game = Game()
-	directions = ["left", "right", "up", "down"]
-	while not game.gameover:
-		direction = random.randrange(len(directions))
-		game.play(directions[direction])
+    def get_obstacles(self):
+        obstacles = []
+        # check to left
+        self.fake_move_left()
+        if self.check_collision():
+            obstacles.append(1)
+        else:
+            obstacles.append(0)
+        self.fake_move_right()
+        # check above
+        self.fake_move_up()
+        if self.check_collision():
+            obstacles.append(1)
+        else:
+            obstacles.append(0)
+        self.fake_move_down()
+        # check to right
+        self.fake_move_right()
+        if self.check_collision():
+            obstacles.append(1)
+        else:
+            obstacles.append(0)
+        self.fake_move_left()
+        # check to bottom
+        self.fake_move_down()
+        if self.check_collision():
+            obstacles.append(1)
+        else:
+            obstacles.append(0)
+        self.fake_move_up()
+        return obstacles
+
+    def fake_move_left(self):
+        self.snake.move_left()
+        self.snake.move()
+
+    def fake_move_up(self):
+        self.snake.move_up()
+        self.snake.move()
+
+    def fake_move_right(self):
+        self.snake.move_right()
+        self.snake.move()
+
+    def fake_move_down(self):
+        self.snake.move_down()
+        self.snake.move()
