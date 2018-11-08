@@ -3,6 +3,9 @@ import random
 import json
 import os
 
+if not os.path.exists('./training_data/'):
+	os.mkdir('./training_data/')
+
 for i in range(100):
 	game = Game()
 	directions = ["left", "right", "up", "down"]
